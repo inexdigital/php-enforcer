@@ -2,18 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Inexdigital\Enforcer\Service;
+namespace Inexdigital\UamAuthorization\Service;
 
 use Google\Protobuf\Internal\Message;
 use Grpc\UnaryCall;
-use Inexdigital\Enforcer\Dto\ABACConfig;
-use Inexdigital\Enforcer\Dto\Policy;
-use Inexdigital\Enforcer\Grpc\Uam\Api\ApiClient;
-use Inexdigital\Enforcer\Grpc\Uam\Api\EnforcerConfigRequest;
-use Inexdigital\Enforcer\Grpc\Uam\Api\EnforcerConfigResponse;
-use Inexdigital\Enforcer\Grpc\Uam\Api\EnforceRequest;
-use Inexdigital\Enforcer\Grpc\Uam\Api\EnforceResponse;
-use Inexdigital\Enforcer\Grpc\Uam\Api\PolicyList;
+use Inexdigital\UamAuthorization\Dto\Config;
+use Inexdigital\UamAuthorization\Dto\Policy;
+use Inexdigital\UamAuthorization\Grpc\Uam\Api\ApiClient;
+use Inexdigital\UamAuthorization\Grpc\Uam\Api\EnforcerConfigRequest;
+use Inexdigital\UamAuthorization\Grpc\Uam\Api\EnforcerConfigResponse;
+use Inexdigital\UamAuthorization\Grpc\Uam\Api\PolicyList;
 use RuntimeException;
 
 use const Grpc\STATUS_OK;
@@ -27,9 +25,9 @@ class UAMService
     }
 
     /**
-     * @return ABACConfig
+     * @return Config
      */
-    public function getABACConfig(): ABACConfig
+    public function getConfig(): Config
     {
         $enforceConfigRequest = new EnforcerConfigRequest();
 
@@ -49,7 +47,7 @@ class UAMService
             $policyList[] = Policy::createFromArray($policy);
         }
 
-        return new ABACConfig($response->getModel(), $policyList);
+        return new Config($response->getModel(), $policyList);
     }
 
     private function getResponse(UnaryCall $unaryCall): Message

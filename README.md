@@ -1,31 +1,31 @@
-## Php enforce
+## UAM Authorization
 
-Package for work with user access management system
+Package for ABAC authorization based on User Access Management (UAM) service.
 
 ## Installation
 
 ```bash
-composer require inexdigital/php-enforcer
+composer require inexdigital/uam-authorization
 ```
 
 ## Usage
 
 ```yml
 # symfony
-Inexdigital\Enforcer\Factory\UamApiClientFactory: ~
-Inexdigital\Enforcer\Factory\EnforcerFactory: ~
-Inexdigital\Enforcer\Service\ABACEnforcer: ~
-Inexdigital\Enforcer\Service\UAMService: ~
+Inexdigital\UamAuthorization\Factory\UamApiClientFactory: ~
+Inexdigital\UamAuthorization\Factory\EnforcerFactory: ~
+Inexdigital\UamAuthorization\Service\Enforcer: ~
+Inexdigital\UamAuthorization\Service\UAMService: ~
 
-Inexdigital\Enforcer\Grpc\Uam\Api\ApiClient:
-  factory: ['@Inexdigital\Enforcer\Factory\UamApiClientFactory', 'create']
+Inexdigital\UamAuthorization\Grpc\Uam\Api\ApiClient:
+  factory: ['@Inexdigital\UamAuthorization\Factory\UamApiClientFactory', 'create']
   arguments:
-    $endpoint: '%env(USER_ACCESS_MANAGEMENT_GRPC_ENDPOINT)%'
+    $endpoint: '%env(USER_ACCESS_MANAGER_GRPC_ADDR)%'
     # Secure by default (TLS enabled).
     $insecure: false
 
 Casbin\Enforcer:
-  factory: [ '@Inexdigital\Enforcer\Factory\EnforcerFactory', 'create']
+  factory: [ '@Inexdigital\UamAuthorization\Factory\EnforcerFactory', 'create']
 ```
 
 ### Security note
@@ -37,10 +37,10 @@ Casbin\Enforcer:
 Example for local development only:
 
 ```yml
-Inexdigital\Enforcer\Grpc\Uam\Api\ApiClient:
-  factory: ['@Inexdigital\Enforcer\Factory\UamApiClientFactory', 'create']
+Inexdigital\UamAuthorization\Grpc\Uam\Api\ApiClient:
+  factory: ['@Inexdigital\UamAuthorization\Factory\UamApiClientFactory', 'create']
   arguments:
-    $endpoint: '%env(USER_ACCESS_MANAGEMENT_GRPC_ENDPOINT)%'
+    $endpoint: '%env(USER_ACCESS_MANAGER_GRPC_ADDR)%'
     $insecure: true
 ```
 

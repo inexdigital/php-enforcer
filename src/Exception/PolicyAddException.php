@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Inexdigital\Enforcer\Exception;
+namespace Inexdigital\UamAuthorization\Exception;
 
 use RuntimeException;
 use Throwable;

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Inexdigital\Enforcer\Factory;
+namespace Inexdigital\UamAuthorization\Factory;
 
 use Casbin\Enforcer;
 use Casbin\Model\Model;
-use Inexdigital\Enforcer\Exception\PolicyAddException;
-use Inexdigital\Enforcer\Service\UAMService;
+use Inexdigital\UamAuthorization\Exception\PolicyAddException;
+use Inexdigital\UamAuthorization\Service\UAMService;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -19,18 +19,23 @@ class EnforcerFactory
     ) {
     }
 
+    /**
+     * Summary of create
+     * @return Enforcer
+     * @throws PolicyAddException
+     */
     public function create(): Enforcer
     {
-        $config = $this->uamService->getABACConfig();
+        $config = $this->uamService->getConfig();
         $enforcer = new Enforcer();
         $model = Model::newModelFromString($config->model);
         $enforcer->setModel($model);
 
         foreach ($config->policyList as $policy) {
             try {
-                if ($policy->getType() === 'g') {
+                if ($policy->isGroupingPolicy()) {
                     $enforcer->addNamedGroupingPolicy(
-                        'g',
+                        $policy->getType(),
                         $policy->getPermission(),
                         $policy->getName(),
                         $policy->getExpression()
@@ -40,7 +45,7 @@ class EnforcerFactory
                 }
 
                 $enforcer->addNamedPolicy(
-                    'p',
+                    $policy->getType(),
                     $policy->getPermission(),
                     $policy->getName(),
                     $policy->getExpression()

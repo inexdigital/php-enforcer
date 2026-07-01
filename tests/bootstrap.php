@@ -196,14 +196,14 @@ namespace Grpc {
 
 namespace {
     $sourceFiles = [
-        __DIR__ . '/../src/Dto/ABACConfig.php',
+        __DIR__ . '/../src/Dto/Config.php',
         __DIR__ . '/../src/Dto/Policy.php',
         __DIR__ . '/../src/Exception/PolicyAddException.php',
         __DIR__ . '/../src/Grpc/Uam/Api/ApiClient.php',
         __DIR__ . '/../src/Service/UAMService.php',
         __DIR__ . '/../src/Factory/EnforcerFactory.php',
         __DIR__ . '/../src/Factory/UamApiClientFactory.php',
-        __DIR__ . '/../src/Service/ABACEnforcer.php',
+        __DIR__ . '/../src/Service/Enforcer.php',
     ];
 
     foreach ($sourceFiles as $sourceFile) {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Inexdigital\Enforcer\Dto;
+namespace Inexdigital\UamAuthorization\Dto;
 
-readonly class ABACConfig
+readonly class Config
 {
     /**
      * @param Policy[] $policyList

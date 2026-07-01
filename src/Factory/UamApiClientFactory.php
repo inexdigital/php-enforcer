@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Inexdigital\Enforcer\Factory;
+namespace Inexdigital\UamAuthorization\Factory;
 
 use Grpc\ChannelCredentials;
-use Inexdigital\Enforcer\Grpc\Uam\Api\ApiClient;
+use Inexdigital\UamAuthorization\Grpc\Uam\Api\ApiClient;
 
 class UamApiClientFactory
 {
