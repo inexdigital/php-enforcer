@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 namespace Tests\Unit;
-use Inexdigital\Enforcer\Factory\UamApiClientFactory;
+use Inexdigital\UamAuthorization\Factory\UamApiClientFactory;
 use PHPUnit\Framework\TestCase;
 final class UamApiClientFactoryTest extends TestCase
 {

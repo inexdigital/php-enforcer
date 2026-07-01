@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace Tests\Unit;
 use Google\Protobuf\RepeatedField;
-use Inexdigital\Enforcer\Dto\Policy;
+use Inexdigital\UamAuthorization\Dto\Policy;
 use PHPUnit\Framework\TestCase;
 final class PolicyTest extends TestCase
 {

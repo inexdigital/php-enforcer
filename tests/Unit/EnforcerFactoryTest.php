@@ -3,11 +3,11 @@ declare(strict_types=1);
 namespace Tests\Unit;
 require_once __DIR__ . '/TestDoubles.php';
 use Casbin\Enforcer;
-use Inexdigital\Enforcer\Dto\ABACConfig;
-use Inexdigital\Enforcer\Dto\Policy;
-use Inexdigital\Enforcer\Exception\PolicyAddException;
-use Inexdigital\Enforcer\Factory\EnforcerFactory;
-use Inexdigital\Enforcer\Service\UAMService;
+use Inexdigital\UamAuthorization\Dto\Config;
+use Inexdigital\UamAuthorization\Dto\Policy;
+use Inexdigital\UamAuthorization\Exception\PolicyAddException;
+use Inexdigital\UamAuthorization\Factory\EnforcerFactory;
+use Inexdigital\UamAuthorization\Service\UAMService;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use Google\Protobuf\RepeatedField;
@@ -16,12 +16,12 @@ final class EnforcerFactoryTest extends TestCase
 {
     public function testCreateBuildsEnforcerWithPolicies(): void
     {
-        $config = new ABACConfig('model-text', [
+        $config = new Config('model-text', [
             Policy::createFromArray(new RepeatedField(['p', 'read', 'orders', 'expr-1'])),
             Policy::createFromArray(new RepeatedField(['g', 'admin', 'orders', 'expr-2'])),
         ]);
         $uamService = $this->createMock(UAMService::class);
-        $uamService->method('getABACConfig')->willReturn($config);
+        $uamService->method('getConfig')->willReturn($config);
         $logger = new SpyLogger();
         $factory = new EnforcerFactory($uamService, $logger);
         $enforcer = $factory->create();
@@ -34,11 +34,11 @@ final class EnforcerFactoryTest extends TestCase
 
     public function testCreateThrowsPolicyAddExceptionWhenPolicyAddFails(): void
     {
-        $config = new ABACConfig('model-text', [
+        $config = new Config('model-text', [
             Policy::createFromArray(new RepeatedField(['p', 'read', 'orders', 'expr-1'])),
         ]);
         $uamService = $this->createMock(UAMService::class);
-        $uamService->method('getABACConfig')->willReturn($config);
+        $uamService->method('getCConfig')->willReturn($config);
         $logger = new SpyLogger();
         $factory = new EnforcerFactory($uamService, $logger);
         $this->expectException(PolicyAddException::class);

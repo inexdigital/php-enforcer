@@ -1,6 +1,6 @@
 {
-  "name": "inexdigital/php-enforcer",
-  "description": "Package for work with user access management system",
+  "name": "inexdigital/uam-authorization",
+  "description": "Package for ABAC authorization based on User Access Management (UAM) service.",
   "type": "library",
   "license": "proprietary",
   "require": {
@@ -8,12 +8,12 @@
     "ext-grpc": "*",
     "casbin/casbin": "^3.25",
     "google/protobuf": "^4.30",
-    "grpc/grpc": "^1.57",
+    "grpc/grpc": "^1.81",
     "symfony/security-core": "^5.4 || ^6.4 || ^7.0"
   },
   "autoload": {
     "psr-4": {
-      "Inexdigital\\Enforcer\\": "src/"
+      "Inexdigital\\UamAuthorization\\": "src/"
     }
   },
   "require-dev": {

@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package app;
+
+option go_package = ".;proto";
+
+option php_namespace = "Inexdigital\\UamAuthorization\\Grpc\\Uam\\Api";
+option php_metadata_namespace = "Inexdigital\\UamAuthorization\\Grpc\\Uam\\GPBMetadata";
+
+service Api {
+    rpc EnforcerConfigABAC(EnforcerConfigRequest) returns(EnforcerConfigResponse) {}
+}
+
+message EnforcerConfigRequest {}
+
+message PolicyList {
+    repeated string policy = 1;
+}
+
+message EnforcerConfigResponse {
+    string model = 1;
+    repeated PolicyList policy_list = 2;
+}
